@@ -2,6 +2,7 @@ import { createAppContainer  } from 'react-navigation';
 import { createStackNavigator  } from 'react-navigation-stack';
 import UserList from '../../components/UsersList';
 import UserPage from '../../components/UserPage';
+import colors from '../../config/color.config';
 
 const AppNavigator = createStackNavigator(
   {
@@ -12,7 +13,7 @@ const AppNavigator = createStackNavigator(
     initialRouteName: 'UserList',
     defaultNavigationOptions: {
       headerStyle: {
-        backgroundColor: '#6092e0'
+        backgroundColor: colors.lightblue
       },
       headerTintColor: '#fff',
       headerTitleStyle: {

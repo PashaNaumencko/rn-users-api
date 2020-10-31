@@ -1,9 +1,10 @@
 import styled from 'styled-components/native';
+import colors from '../../config/color.config';
 
 export const Container = styled.View`
   display: flex;
   flex-direction: row;
-  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 2px 8px ${colors.shadowColor};
   background-color: #ffffff;
   border-radius: 5px;
   padding: 15px;

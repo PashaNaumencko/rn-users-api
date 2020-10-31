@@ -1,4 +1,5 @@
 import styled from 'styled-components/native';
+import colors from '../../config/color.config';
 
 export const Container = styled.View`
   flex: 1;
@@ -44,7 +45,7 @@ export const UserCity = styled.Text`
 export const BorderBottom = styled.View`
   width: 100%;
   border-bottom-width: 3px;
-  border-bottom-color: #cccccc;
+  border-bottom-color: ${colors.grey};
   padding-bottom: 25px;
   margin-bottom: 20px;
 `;
@@ -54,6 +55,6 @@ export const UserGender = styled.Text`
   font-size: 18px;
   text-align: center;
   letter-spacing: 3px;
-  color: #1565e6;
+  color: ${colors.darkblue};
   text-transform: uppercase;
 `;

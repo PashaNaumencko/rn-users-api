@@ -1,8 +1,9 @@
 const colors = {
   blue: '#0000ff',
-  white: '#fff',
-  black: '#000',
-  shadowColor: 'rgba(0, 0, 0, 0.5)'
+  darkblue: '#1565e6',
+  lightblue: '#6092e0',
+  shadowColor: 'rgba(0, 0, 0, 0.1)',
+  grey: '#cccccc'
 };
-  
+
 export default colors;
