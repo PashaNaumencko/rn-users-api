@@ -7,14 +7,14 @@ function* usersListRequest({ payload }) {
   try {
     yield put(getUsers.request());
     const response = yield call(userService.getUsersList, payload);
-    yield put(getUsers.success(response));
+    yield put(getUsers.success(response.results));
   } catch (error) {
     yield put(getUsers.failure(error.message));
   } finally {
     yield put(getUsers.fulfill());
   }
 }
-  
+
 function* watchUsersListRequest() {
   yield takeEvery(getUsers.TRIGGER, usersListRequest);
 }

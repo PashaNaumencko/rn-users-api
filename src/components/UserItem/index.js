@@ -1,28 +1,33 @@
 import React from 'react';
 import { TouchableOpacity } from 'react-native';
 import {
-    Container,
-    UserPhoto,
-    UserDescription,
-    UserFullName,
-    UserPhone
+  Container,
+  UserThumbnailPhoto,
+  UserDescription,
+  UserFullName,
+  UserPhone
 } from './styles';
 
-const UserItem = ({ onUserPress, avatarUrl }) => (
+const UserItem = ({
+  onUserPress,
+  picture: { thumbnail: avatarUrl },
+  name: { first, last },
+  phone
+}) => (
   <TouchableOpacity
-  //   onPress={onUserPress(item)}
+    onPress={onUserPress}
   >
-      <Container>
-          <UserPhoto source={{ uri: avatarUrl }} />
-          <UserDescription>
-              <UserFullName>
-                  Pavlo Naumenko
-              </UserFullName>
-              <UserPhone>
-                  (+380)66-370-58-43
-              </UserPhone>
-          </UserDescription>
-      </Container>
+    <Container>
+      <UserThumbnailPhoto source={{ uri: avatarUrl }} />
+      <UserDescription>
+        <UserFullName>
+          {first} {last}
+        </UserFullName>
+        <UserPhone>
+          {phone}
+        </UserPhone>
+      </UserDescription>
+    </Container>
   </TouchableOpacity>
 );
 

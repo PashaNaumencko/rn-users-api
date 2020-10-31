@@ -1,8 +1,8 @@
-import { getUsers } from '../../routines';
+import { getUsers, RESET_USERS } from '../../routines';
 
 const initialState = {
   users: [],
-  loading: true,
+  loading: false,
   error: null
 };
 
@@ -14,6 +14,7 @@ const handlers = {
   }),
   [getUsers.FAILURE]: (state, action) => ({ ...state, error: action.payload }),
   [getUsers.FULFILL]: (state) => ({ ...state, loading: false }),
+  [RESET_USERS]: (state) => ({ ...state, users: [] }),
   DEFAULT: (state) => state
 }
 

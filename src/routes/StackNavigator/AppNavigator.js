@@ -12,11 +12,12 @@ const AppNavigator = createStackNavigator(
     initialRouteName: 'UserList',
     defaultNavigationOptions: {
       headerStyle: {
-        backgroundColor: '#fff'
+        backgroundColor: '#6092e0'
       },
-      headerTintColor: '#000',
+      headerTintColor: '#fff',
       headerTitleStyle: {
-        fontWeight: '600'
+        fontWeight: '600',
+        color: '#ffffff'
       }
     }
   }

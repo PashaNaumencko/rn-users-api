@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { FlatList, ActivityIndicator } from 'react-native';
+import { FlatList } from 'react-native';
 import UsersItem from '../UserItem';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { getUsers } from '../../routines';
+import { resetUsers } from './actions';
 import colors from '../../config/color.config';
 
 import {
@@ -11,82 +12,70 @@ import {
   Spinner
 } from './styles';
 
-const UsersList = ({ getUsers, users, navigation, loading }) => {
+const UsersList = ({ getUsers, resetUsers, users, navigation, loading }) => {
   const [page, setPage] = useState(1);
   const itemCountPerPage = 10;
 
-  const navigationOptions = {
-    title: 'Gallery'
-  };
-
   useEffect(() => {
     onLoad();
-  }, [users]);
+  }, []);
 
   const onLoad = () => {
-    getUsers({ page, limit: itemCountPerPage });
+    getUsers({ page, results: itemCountPerPage });
   };
 
   const fetchMore = () => {
-    setPage(
-      (prevState) => ({
-        page: prevState.page + 1
-      }),
-      onLoad
-    );
-  }
-
-  const onUsersPress = (user) => () => {
-    navigation.push('UsersPage', { userInfo: user });
+    setPage(prevPage => prevPage + 1);
+    onLoad();
   };
 
-  onRefresh = () => {
+  const onUsersPress = (user) => () => {
+    navigation.push('UserPage', { user });
+  };
+
+  const onRefresh = () => {
+    resetUsers();
     setPage(1);
     onLoad();
   }
 
-  // getRenderItem = ({ item }) => {
-  //   const { urls: { regular: imgUrl }, user: { username, profile_image: { medium: avatarUrl } }, description } = item;
+  const getKeyExtractor = item => item.phone;
 
-  //   const title = description || 'Untitled';
+  const firstLoading = loading && page === 1;
+  const moreLoading = loading && page > 1;
 
-  //   return
-  // };
 
-  const getKeyExtractor = item => item.id;
-
-  if(loading) {
-    return <ActivityIndicator size="large" color={colors.black} />
+  if(firstLoading) {
+    return <Spinner size="large" color={colors.blue}/>
   }
-
-  // const firstLoading = loading && page === 1;
-  // const moreLoading = loading && page > 1;
 
   return (
     <Container>
-      <UsersItem avatarUrl="https://randomuser.me/api/portraits/thumb/women/67.jpg" />
-      {/* <FlatList
+      <FlatList
         refreshing={firstLoading}
         onRefresh={onRefresh}
         data={users}
-        // horizontal={false}
         numColumns={1}
         keyExtractor={getKeyExtractor}
-        renderItem={this.getRenderItem}
-        onEndReached={this.fetchMore}
+        renderItem={({ item: user }) => <UsersItem {...user} onUserPress={onUsersPress(user)} />}
+        onEndReached={fetchMore}
         onEndReachedThreshold={0}
-        initialNumToRender={6}
-      /> */}
-      {/* {moreLoading && <ActivityIndicator style={styles.loader} size="large" color={colors.blue} />} */}
+        initialNumToRender={10}
+      />
+      {moreLoading && <Spinner size="large" color={colors.blue} />}
     </Container>
   );
 }
 
 UsersList.propTypes = {
   navigation: PropTypes.object,
-  users: PropTypes.object,
+  users: PropTypes.array,
   loading: PropTypes.bool,
   getUsers: PropTypes.func.isRequired
+};
+
+UsersList.navigationOptions = {
+  title: 'Users'
 };
 
 const mapStateToProps = ({ usersReducer: { users, loading } }) => ({
@@ -95,7 +84,8 @@ const mapStateToProps = ({ usersReducer: { users, loading } }) => ({
 });
 
 const mapDispatchToProps = {
-  getUsers
+  getUsers,
+  resetUsers
 };
 
 export default connect(
