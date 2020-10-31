@@ -1,4 +1,5 @@
-import { getUsers, RESET_USERS } from '../../routines';
+import { getUsers } from '../../routines';
+import { RESET_USERS } from './actionTypes'
 
 const initialState = {
   users: [],

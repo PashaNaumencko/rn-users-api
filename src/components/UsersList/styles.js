@@ -6,8 +6,8 @@ export const Container = styled.View`
 `;
 
 export const Spinner = styled.ActivityIndicator`
+  padding: 25px 0;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 25px 0;
 `;

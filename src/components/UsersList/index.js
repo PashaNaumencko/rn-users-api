@@ -15,6 +15,7 @@ import {
 const UsersList = ({ getUsers, resetUsers, users, navigation, loading }) => {
   const [page, setPage] = useState(1);
   const itemCountPerPage = 10;
+  const maxPageNum = 4;
 
   useEffect(() => {
     onLoad();
@@ -25,8 +26,10 @@ const UsersList = ({ getUsers, resetUsers, users, navigation, loading }) => {
   };
 
   const fetchMore = () => {
-    setPage(prevPage => prevPage + 1);
-    onLoad();
+    if (page < maxPageNum) {
+      setPage(prevPage => prevPage + 1);
+      onLoad();
+    }
   };
 
   const onUsersPress = (user) => () => {
