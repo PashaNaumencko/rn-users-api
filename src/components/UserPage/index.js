@@ -1,29 +1,50 @@
 import React from 'react';
-import { View, Image } from 'react-native';
 import PropTypes from 'prop-types';
-import styles from './styles';
+import {
+  Container,
+  UserPhoto,
+  UserAge,
+  UserEmail,
+  UserPhone,
+  UserCity,
+  UserGender,
+  BorderBottom
+} from './styles';
 
-const PhotoPage = ({ navigation }) => {
-  const { urls: { regular: imgUrl } } = navigation.getParam('photoInfo');
+const UserPage = ({ navigation }) => {
+  const {
+    picture: { large: imgUrl },
+    dob: { age },
+    email,
+    phone,
+    location: { city, state },
+    gender
+  } = navigation.getParam('user');
   return (
-    <View style={styles.container}>
-      <Image style={styles.image} source={{ uri: imgUrl }} />
-    </View>
+    <Container>
+      <UserPhoto source={{ uri: imgUrl }} />
+      <UserAge>I have {age} years old</UserAge>
+      <UserEmail>{email}</UserEmail>
+      <UserPhone>{phone}</UserPhone>
+      <BorderBottom>
+        <UserCity>{city}, {state}</UserCity>
+      </BorderBottom>
+      <UserGender>{gender}</UserGender>
+    </Container>
   );
 };
 
-PhotoPage.navigationOptions = ({ navigation }) => {
-  const { description } = navigation.getParam('photoInfo');
-  const title = description || 'Untitled';
+UserPage.navigationOptions = ({ navigation }) => {
+  const { name: { first, last } } = navigation.getParam('user');
+  const title = `${first} ${last}` || 'Untitled';
   return {
     title
   };
 };
 
-
-PhotoPage.propTypes = {
+UserPage.propTypes = {
   navigation: PropTypes.object,
   getParam: PropTypes.func
 };
 
-export default PhotoPage;
+export default UserPage;
